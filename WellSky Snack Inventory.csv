@@ -1,6 +1,6 @@
 Name,Price,Categories,Vibes,Image,Description,Price with Tax
-Nerds Gummy Clusters,3.99,SWEET|SOUR,WILD|CHEEKY|CHAOTIC,assets\nerds_gummy_clusters.png,WOW!,4.14
-Haribo Gummy Bears,2.69,SWEET,HYPER|WILD|SASSY,assets\haribo_gummy_bears.png,CUTE..,2.79
+Nerds Gummy Clusters,3.99,SWEET|SOUR,WILD|CHEEKY|CHAOTIC,assets/nerds_gummy_clusters.png,WOW!,4.14
+Haribo Gummy Bears,2.69,SWEET,HYPER|WILD|SASSY,assets/haribo_gummy_bears.png,CUTE..,2.79
 Mike and Ikes,2.69,SWEET,HYPER|NORMIE,assets/mike_and_ike.png,The Bud Light of pill-shaped candy.,2.79
 Peanut Butter Filled Pretzels,1.89,SAVORY|SALTY,INDECISIVE|NOSTALGIC,assets/peanut_butter_filled_pretzels.png,Don't forget to blow the dust off that bag.,1.96
 Jack Links Beef Jerky,2.89,SAVORY ,INSECURE|RAVENOUS,assets/jack_links_beef_jerky.png,Yep you just spent a third of your allowance on 2 good bites and some meat-essenced air. ,3
@@ -12,7 +12,7 @@ Kinder Bueno,2.49,SWEET,NOSTALGIC|HYPER,assets/kinder_bueno.png,Have a good day 
 Almond Joy,2.49,SWEET|BITTER,IN DENIAL|DESPERATE,assets/almond_joy.png,No it's not a 'healthy' candy bar. Let's rip that band-aid off right now.,2.58
 Cookie Dough Bites,2.49,SWEET,NOSTALGIC|CINEPHILE,assets/cookie_dough_bites.png,Ahh… makes me miss Blockbuster.,2.58
 Snickers Minis,2.69,SWEET|SALTY,RAVENOUS|SPOOKY,assets/snickers_minis.png,"""Personally, I'm a full size candy bar kinda guy.""",2.79
-Banana Bread Granola Bakes,1.99,SWEET,HEALTHY|ELEGANT,assets/banana_bread_granola_bakes.png,Peanut free, Tree nut free, Dairy free, Soy free, Thankfully not flavor free.,2.07
+Banana Bread Granola Bakes,1.99,SWEET,HEALTHY|ELEGANT,assets/banana_bread_granola_bakes.png,"""Peanut free, tree nut free, dairy free, soy free. Thankfully not flavor free.""",2.07
 BelVita Blueberry Breakfast Biscuits,1.89,SWEET,RAVENOUS|INSECURE,assets/belvita_breakfast_biscuits.png,Breakfast my *a***.,1.96
 Gatorade Chocolate Chip Protein Bar,3.49,SWEET|SALTY|LITERALLY ASBESTOS,INSECURE|CHAOTIC,assets/gatorade_chocolate_protein_bar.png,Overbaked styrofoam beads coated in a layer of cheap and saccharine chocolate. Finished with that chalky aftertaste that gym bros love. ,3.62
 Chocolate Chip Clif Bar,2.89,SWEET,"""HEALTHY""|OUTDOORSY|BRAVE",assets/chocolate_chip_clif_bar.png,"""Oh, you like Clif bars? Free solo El Capitan right now.""",3
