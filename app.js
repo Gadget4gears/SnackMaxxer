@@ -1,6 +1,6 @@
 // app.js
 
-// 1. Updated Multi-Category CSV Data (IDs and Emojis replaced with programmatic IDs and asset image paths)
+// 1. Updated Multi-Category CSV Data (Fallback backup)
 const rawCSVData = `name,price,categories,vibes,image,description
 Nerds Gummy Clusters,3.99,SWEET|SOUR,WILD|CHAOTIC|CHEEKY,assets/nerds_gummy_clusters.png,~WOW!~
 Haribo Gummy Bears,2.69,SWEET,HYPER|WILD|SASSY,assets/haribo_gummy_bears.png,*CUTE*.
@@ -11,13 +11,13 @@ Peanut M&Ms,2.69,SWEET|SALTY|SAVORY,CHIC|STYLISH,assets/peanut_m&ms.png,I think 
 Kit Kat,2.49,SWEET,CHEEKY|ELEGANT,assets/kitkat.png,You're sharing that. Right...?
 Reese's Peanut Butter Cups,2.49,SWEET|SAVORY,CHIC|COSMOPOLITAN,assets/reeses.png,Peanut BETTER than a KitKat.
 Kinder Bueno,2.49,SWEET,NOSTALGIC|HYPER,assets/kinder_bueno.png,Have a good day at school sweetie!
-Almond Joy,2.49,SWEET,IN DENIAL|DESPERATE,assets/almond_joy.png,"*No*, it's not a "healthy" candy bar. Let's rip that band-aid off right now.""
+Almond Joy,2.49,SWEET,IN DENIAL|DESPERATE,assets/almond_joy.png,"*No*, it's not a "healthy" candy bar. Let's rip that band-aid off right now."
 Cookie Dough Bites,2.49,SWEET,NOSTALGIC|CINEPHILE,assets/cookie_dough_bites.png,Ahh… makes me miss Blockbuster.
 Snickers Minis,2.69,SWEET|SALTY,RAVENOUS|SPOOKY,assets/snickers_minis.png,"Personally, I'm a full-size candy bar kinda guy."
-Banana Bread Granola Bakes,1.99,SWEET,HEALTHY|ELEGANT,assets/banana_bread_granola_bakes.png,"Peanut free, Tree nut free, Dairy free, Soy free, Thankfully not flavor free.""
+Banana Bread Granola Bakes,1.99,SWEET,HEALTHY|ELEGANT,assets/banana_bread_granola_bakes.png,"Peanut free, Tree nut free, Dairy free, Soy free, Thankfully not flavor free."
 BelVita Blueberry Breakfast Biscuits,1.89,SWEET,RAVENOUS|INSECURE,assets/belvita_breakfast_biscuits.png,Breakfast my *a***.
 Gatorade Chocolate Chip Protein Bar,3.49,SWEET|SALTY|LITERALLY ASBESTOS,INSECURE|CHAOTIC,assets/gatorade_chocolate_protein_bar.png,Overbaked styrofoam beads coated in a layer of cheap and saccharine chocolate. Finished with that chalky aftertaste gym bros love.
-Chocolate Chip Clif Bar,2.89,SWEET,"HEALTHY"|OUTDOORSY|BRAVE,assets/chocolate_chip_clif_bar.png,"Oh, you like Clif bars? Free solo El Capitan right now.""
+Chocolate Chip Clif Bar,2.89,SWEET,"HEALTHY"|OUTDOORSY|BRAVE,assets/chocolate_chip_clif_bar.png,"Oh, you like Clif bars? Free solo El Capitan right now."
 Peanut Butter Filled Pretzels,1.89,SAVORY|SALTY,NOSTALGIC|CHEEKY,assets/peanut_butter_filled_pretzels.png,Don't forget to blow the *dust* off that bag.
 Shelled Pistachios,2.29,SALTY|SAVORY|BITTER,ELITIST|HEALTHY,assets/shelled_pistachios.png,You healthy ~bastard~.
 Planters Flamin' Hot Peanuts,1.49,SALTY|SPICY|SAVORY,SASSY|WILD,assets/flamin_hot_peanuts.png,SPICY. *clap* \\nCHEAP. *clap* \\nYES. *clap*
@@ -28,11 +28,11 @@ Strawberry Pop Tarts,1.89,SWEET,HYPER|NAUGHTY,assets/strawberry_pop_tarts.png,"C
 Rice Krispies Treats,1.89,SWEET,NOSTALGIC|SELF-REFLECTIVE,assets/rice_krispies_treats.png,*Oh no!* Mommy forgot to pack your lunch!
 Strawberry Vanilla Croissant,2.39,SWEET|SAVORY,DESPERATE|BRAVE,assets/strawberry_vanilla_croissant.png,It has a certain... \\nJe ne sais- *gags*.
 Tostitos Meduim Nacho Cheese Dip,2.09,SAVORY|SALTY,RAVENOUS|TRASHY,assets/nacho_cheese_dip.png,*Pleaseee* tell me you're buying chips with this.
-Sunbelt Bakery Fudge Dipped Chocolate Chip Granola Bar,1.59,SWEET,BASIC|DESPERATE,assets/sunbelt_bar.png,"You came here with under $2 looking for a ~chocolate~ fix? *Sorry pal*, this is it.""
+Sunbelt Bakery Fudge Dipped Chocolate Chip Granola Bar,1.59,SWEET,BASIC|DESPERATE,assets/sunbelt_bar.png,"You came here with under $2 looking for a ~chocolate~ fix? *Sorry pal*, this is it."
 Cinnamon Toast Crunch Treat,2.59,SALTY|SWEET,ELEGANT|TRASHY,assets/cinnamon_toast_treat.png,Rice Krispies should have seen this coming. Game over.
 Wrigleys Extra Polar Ice Gum,2.09,SWEET|MINTY,CHIC|FRESH|CRUEL,assets/extra_polar_ice_gum.png,*SMACK. SMACK. SMACK.*
 Cheetos Flamin' Hot,1.69,SPICY|SAVORY|SALTY,SASSY|VENGEFUL,assets/hot_cheetos.png,Pairs well with your grubby keyboard.
-Miss Vickie's Spicy Dill Pickle Chips,1.69,SPICY|SAVORY|SALTY|SOUR,BRAVE|COSMOPOLITAN|SASSY,assets/spicy_dill_pickle_chips.png,"With chips like this, idk how she's single!""
+Miss Vickie's Spicy Dill Pickle Chips,1.69,SPICY|SAVORY|SALTY|SOUR,BRAVE|COSMOPOLITAN|SASSY,assets/spicy_dill_pickle_chips.png,"With chips like this, idk how she's single!"
 Snyders Mini Pretzles,1.69,SALTY,DESPERATE|HEALTHY,assets/mini_pretzels.png,As affordable as they are bland. Self-burn! Those are rare.`;
 
 // State Controller
@@ -44,7 +44,7 @@ let currentMode = 'taste'; // 'taste' or 'vibe'
 const taxRate = 0.0379;
 let lastSelectedId = null; // Tracks the ID of the most recently interacted snack
 let mouseX = 0, mouseY = 0; // Globally stores current cursor coordinates
-let currentArmAngle = null; // === ADD THIS TO TRACK THE CURRENT LERP ANGLE ===
+let currentArmAngle = null; // Tracks the current leg angle
 
 
 // Pagination configuration
@@ -58,9 +58,10 @@ let speakTimeout = null;
 // CSV Parser assigns programmatically generated row letters and column numbers
 function parseCSV(csvText) {
     const lines = csvText.trim().split('\n');
-    const headers = lines[0].split(',').map(h => h.trim());
+    // Remove the UTF-8 BOM if present, and normalize all headers to lowercase
+    const headers = lines[0].replace(/^\ufeff/, '').split(',').map(h => h.trim().toLowerCase());
 
-    return lines.slice(1).map((line, index) => {
+    const parsedList = lines.slice(1).map((line) => {
         const values = [];
         let current = '';
         let inQuotes = false;
@@ -81,11 +82,6 @@ function parseCSV(csvText) {
 
         const snack = {};
 
-        // Auto-assign ID programmatically (4 items per grid row)
-        const rowLetter = String.fromCharCode(65 + Math.floor(index / 4));
-        const colNum = (index % 4) + 1;
-        snack.id = `${rowLetter}${colNum}`;
-
         headers.forEach((header, indexHeader) => {
             const key = header;
             let val = values[indexHeader] ? values[indexHeader].trim() : '';
@@ -98,18 +94,61 @@ function parseCSV(csvText) {
             // TRANSLATE WRITTEN \\n INTO ACTUAL NEWLINES
             val = val.replace(/\\n/g, '\n');
 
+            // Standardize backslashes into web-safe forward slashes for image paths
+            val = val.replace(/\\/g, '/');
+
             if (key === 'categories' || key === 'vibes') {
-                snack[key] = val.split('|');
+                snack[key] = val.split('|').map(item => item.trim()).filter(item => item !== '');
             } else {
                 snack[key] = val;
             }
         });
         return snack;
     });
+
+    // CRITICAL UPDATE: Filter out any items under construction
+    const completeSnacks = parsedList.filter(snack => {
+        // Must have a valid name
+        if (!snack.name || snack.name.trim() === '') return false;
+
+        // Must have a valid price
+        const parsedPrice = parseFloat(snack.price);
+        if (isNaN(parsedPrice) || parsedPrice <= 0) return false;
+
+        // Must have categories, vibes, an image path, and a description text
+        if (!snack.categories || snack.categories.length === 0 || snack.categories.every(c => c === '')) return false;
+        if (!snack.vibes || snack.vibes.length === 0 || snack.vibes.every(v => v === '')) return false;
+        if (!snack.image || snack.image.trim() === '') return false;
+        if (!snack.description || snack.description.trim() === '') return false;
+
+        return true;
+    });
+
+    // Auto-assign ID programmatically (4 items per grid row) ONLY to fully filled-out items
+    completeSnacks.forEach((snack, index) => {
+        const rowLetter = String.fromCharCode(65 + Math.floor(index / 4));
+        const colNum = (index % 4) + 1;
+        snack.id = `${rowLetter}${colNum}`;
+    });
+
+    return completeSnacks;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const snacks = parseCSV(rawCSVData);
+document.addEventListener('DOMContentLoaded', async () => {
+    let snacks = [];
+
+    // CRITICAL UPDATE: Asynchronously fetch live data, fallback to code array if blocked
+    try {
+        const response = await fetch('WellSky Snack Inventory.csv');
+        if (!response.ok) throw new Error("Could not find the external CSV file.");
+        const csvText = await response.text();
+        snacks = parseCSV(csvText);
+        console.log("System: Successfully loaded snacks directly from your WellSky Snack Inventory.csv!");
+    } catch (e) {
+        console.warn("System: Loading from external CSV failed. Falling back to embedded array data.", e);
+        snacks = parseCSV(rawCSVData);
+    }
+
     const grid = document.getElementById('snacks-grid');
     const machine = document.getElementById('vending-machine');
     const popover = document.getElementById('global-popover');
@@ -165,24 +204,20 @@ document.addEventListener('DOMContentLoaded', () => {
         screenTotal.appendChild(totalSparkles);
     }
 
-    // --- UPGRADED ANIMATED TYPEWRITER COMPONENT (Wave, Line-Break & Token-Aware) ---
+    // --- UPGRADED ANIMATED TYPEWRITER COMPONENT ---
     function speak(text) {
-        const container = mascotDialogue.parentElement; // Targets .mascot-container perfectly!
+        const container = mascotDialogue.parentElement; 
 
-        // Clear any previous disappearing timeouts
         if (speakTimeout) clearTimeout(speakTimeout);
 
-        // Reset container classes to trigger animation states cleanly
         container.classList.remove('speaking', 'hidden');
-        void container.offsetWidth; // Force layout recalculation for DOM animation reload
+        void container.offsetWidth; 
         container.classList.add('speaking');
 
-        // Clear previous typing routines
         if (typeWriterInterval) clearInterval(typeWriterInterval);
 
-        mascotDialogue.innerHTML = ''; // Wipe clean
+        mascotDialogue.innerHTML = ''; 
 
-        // Tokenize Text by extracting blocks of vibration (*vibrate*) and waves (~wave~)
         const tokens = [];
         const parts = text.split(/(\*[^*]+?\*|~[^~]+?~)/g);
         parts.forEach(part => {
@@ -206,14 +241,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (charIndex < currentToken.text.length) {
                     const char = currentToken.text.charAt(charIndex);
 
-                    // 1. CLEAN NEWLINE INTERCEPTION
                     if (char === '\n') {
-                        // Append a clean line break element
                         mascotDialogue.appendChild(document.createElement('br'));
-                        // Force-terminate active styling context so it doesn't bleed to the next line
                         currentSpan = null;
                     }
-                    // 2. RAINBOW WAVE SEGMENT
                     else if (currentToken.type === 'rainbow') {
                         if (char === ' ') {
                             mascotDialogue.appendChild(document.createTextNode(' '));
@@ -225,7 +256,6 @@ document.addEventListener('DOMContentLoaded', () => {
                             mascotDialogue.appendChild(charSpan);
                         }
                     }
-                    // 3. VIBRATION SEGMENT
                     else if (currentToken.type === 'vibrate') {
                         if (charIndex === 0 || !currentSpan) {
                             currentSpan = document.createElement('span');
@@ -234,12 +264,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                         currentSpan.textContent += char;
                     }
-                    // 4. NORMAL TEXT SEGMENT
                     else {
                         mascotDialogue.appendChild(document.createTextNode(char));
                     }
 
-                    // Mouth flapping animation frame coordinates
                     if (mascotAvatarImg) {
                         let elapsedChars = charIndex;
                         for (let t = 0; t < tokenIndex; t++) {
@@ -251,13 +279,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     charIndex++;
                 } else {
-                    // Shift to next segment token
                     tokenIndex++;
                     charIndex = 0;
                     currentSpan = null;
                 }
             } else {
-                // Stop typing routine
                 clearInterval(typeWriterInterval);
                 if (mascotAvatarImg) {
                     mascotAvatarImg.src = 'assets/pretz/pretz_body.png';
@@ -270,7 +296,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 15);
     }
 
-    // Reset the cart fully
     function resetCart() {
         selectedSnacks.clear();
         lastSelectedId = null; 
@@ -283,7 +308,6 @@ document.addEventListener('DOMContentLoaded', () => {
         updateBudgetHighlights(snacks);
     }
 
-    // Budget Switch Utility
     function applyNewBudget(amount) {
         const currentTotal = calculateTotal();
         const currentTotalCents = Math.round(currentTotal * 100);
@@ -333,7 +357,6 @@ document.addEventListener('DOMContentLoaded', () => {
             <span class="snack-count" id="badge-${snack.id}">0x</span>
             <span class="snack-maxx-badge">MAXX</span>
             
-            <!-- Edge-Emitted Star Sparkles Container -->
             <div class="sparkles-container">
                 <span class="sparkle s1"></span>
                 <span class="sparkle s2"></span>
@@ -345,10 +368,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span class="sparkle s8"></span>
             </div>
             
-            <!-- Replaced native emoji with high-quality styled img asset -->
             <img class="snack-image" src="${snack.image}" alt="${snack.name}">
             
-            <!-- Left and Right Split Controls (Plain text for CSS color styling) -->
             <div class="slot-ctrl-btn ctrl-minus">−</div>
             <div class="slot-ctrl-btn ctrl-plus">+</div>
         `;
@@ -357,7 +378,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const plusCtrl = slot.querySelector('.ctrl-plus');
 
         function incrementQuantity() {
-            // Compute hypothetical post-tax cost using cent math to dodge rounding floats
             let hypotheticalSubtotal = 0;
             selectedSnacks.forEach((count, id) => {
                 const s = snacks.find(item => item.id === id);
@@ -399,20 +419,17 @@ document.addEventListener('DOMContentLoaded', () => {
             updateBudgetHighlights(snacks);
         }
 
-        // Click on the overall slot
         slot.addEventListener('click', () => {
             if (!selectedSnacks.has(snack.id) || selectedSnacks.get(snack.id) === 0) {
                 incrementQuantity();
             }
         });
 
-        // Left Minus Control Hit
         minusCtrl.addEventListener('click', (e) => {
             e.stopPropagation();
             decrementQuantity();
         });
 
-        // Right Plus Control Hit
         plusCtrl.addEventListener('click', (e) => {
             e.stopPropagation();
             incrementQuantity();
@@ -427,7 +444,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 selectedSnacks.delete(snack.id);
                 slot.classList.remove('selected', 'maxx-success');
                 badge.style.display = 'none';
-                // If there are still items left in the cart, point to the next available one
                 if (selectedSnacks.size > 0) {
                     lastSelectedId = Array.from(selectedSnacks.keys()).pop();
                 } else {
@@ -444,7 +460,6 @@ document.addEventListener('DOMContentLoaded', () => {
             updateBudgetHighlights(snacks);
         }
 
-        // --- HOVER PREVIEW ACTIONS ---
         slot.addEventListener('mouseenter', (e) => {
             const priceVal = parseFloat(snack.price);
             const taxVal = priceVal * taxRate;
@@ -472,7 +487,6 @@ document.addEventListener('DOMContentLoaded', () => {
         grid.appendChild(slot);
     });
 
-    // Helper: Dynamic filtering retrieval
     function getMatchingSnacks() {
         return snacks.filter(snack => {
             const tagsToCheck = currentMode === 'taste' ? snack.categories : snack.vibes;
@@ -488,18 +502,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- DYNAMIC PAGE-OVER NAVIGATION SYSTEM ---
     function changePage(direction) {
         const matchingSnacks = getMatchingSnacks();
         const totalPages = Math.max(1, Math.ceil(matchingSnacks.length / itemsPerPage));
 
-        if (totalPages <= 1) return; // No pagination sequence needed if they fit on one page!
+        if (totalPages <= 1) return;
 
-        // 1. Slide active page slots cleanly out of frame
         const slideOutClass = direction === 'next' ? 'slide-out-left' : 'slide-out-right';
         grid.classList.add(slideOutClass);
 
-        // 2. Wait for exit transitions, then load new dataset
         setTimeout(() => {
             if (direction === 'next') {
                 currentPage = (currentPage + 1) % totalPages;
@@ -507,15 +518,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentPage = (currentPage - 1 + totalPages) % totalPages;
             }
 
-            // Reapply grid positioning filters for the new page layout
             applyFilters();
 
-            // 3. Glide the new page inside with an active spring wiggle effect
             grid.classList.remove(slideOutClass);
             const slideInClass = direction === 'next' ? 'slide-in-right' : 'slide-in-left';
             grid.classList.add(slideInClass, 'momentum-shake');
 
-            // 4. Remove active motion styling classes after ease-out sequence finishes
             setTimeout(() => {
                 grid.classList.remove(slideInClass, 'momentum-shake');
             }, 350);
@@ -527,7 +535,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const totalPages = Math.max(1, Math.ceil(matchingSnacks.length / itemsPerPage));
         if (!pagePrevBtn || !pageNextBtn) return;
 
-        // Toggle disabled states based on active matching pages
         pagePrevBtn.disabled = (currentPage === 0);
         pageNextBtn.disabled = (currentPage === totalPages - 1);
 
@@ -538,7 +545,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const budgetLeft = userBudget - currentTotal;
         const budgetLeftCents = Math.round(budgetLeft * 100);
 
-        // Helper to check target pages range for MAXX vs affordable items
         function getPagesState(startPage, endPage) {
             let hasMaxx = false;
             let hasAffordable = false;
@@ -550,10 +556,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 for (let i = startIdx; i < endIdx; i++) {
                     const snack = matchingSnacks[i];
 
-                    // Skip if already maximum quantity spent
                     if (selectedSnacks.has(snack.id) && selectedSnacks.get(snack.id) > 0) continue;
 
-                    // Calculate hypothetical totals
                     let hypotheticalSubtotal = 0;
                     selectedSnacks.forEach((count, id) => {
                         const s = snacks.find(item => item.id === id);
@@ -576,14 +580,12 @@ document.addEventListener('DOMContentLoaded', () => {
             return { hasMaxx, hasAffordable };
         }
 
-        // Evaluate Previous Pages
         if (currentPage > 0) {
             const state = getPagesState(0, currentPage - 1);
             if (state.hasMaxx) pagePrevBtn.classList.add('glow-gold');
             else if (state.hasAffordable) pagePrevBtn.classList.add('glow-green');
         }
 
-        // Evaluate Next Pages
         if (currentPage < totalPages - 1) {
             const state = getPagesState(currentPage + 1, totalPages - 1);
             if (state.hasMaxx) pageNextBtn.classList.add('glow-gold');
@@ -596,7 +598,6 @@ document.addEventListener('DOMContentLoaded', () => {
         pageNextBtn.addEventListener('click', () => changePage('next'));
     }
 
-    // Popover Placement
     function positionPopover(targetSlot, machineContainer, popoverEl) {
         const slotRect = targetSlot.getBoundingClientRect();
         const machineRect = machineContainer.getBoundingClientRect();
@@ -619,7 +620,6 @@ document.addEventListener('DOMContentLoaded', () => {
         popoverEl.style.top = `${targetY}px`;
     }
 
-    // Cost Accounting
     function calculateTotal() {
         let subtotal = 0;
         selectedSnacks.forEach((count, id) => {
@@ -633,10 +633,9 @@ document.addEventListener('DOMContentLoaded', () => {
         return subtotal + tax;
     }
 
-    // --- Renders Itemized Cart on CRT Green Screen ---
     function updateReceipt() {
         const ledger = document.getElementById('receipt-ledger');
-        ledger.innerHTML = ''; // Wipe clean
+        ledger.innerHTML = ''; 
 
         let subtotal = 0;
 
@@ -672,16 +671,13 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('budget-value').textContent = `$${remainingBudget.toFixed(2)}`;
     }
 
-    // --- Dynamic Budget Highlighting (Including MAXX Gold Match check) ---
     function updateBudgetHighlights(snacksList) {
         const currentTotal = calculateTotal();
         const budgetLeft = userBudget - currentTotal;
         const budgetLeftCents = Math.round(budgetLeft * 100);
 
-        // Check if we hit EXACTLY $0.00 left on active selections (Maxxed Out Victory)
         const isCurrentlyMaxxed = (budgetLeftCents === 0 && selectedSnacks.size > 0);
 
-        // Toggle success states on Total receipt text row
         if (screenTotal) {
             if (isCurrentlyMaxxed) {
                 screenTotal.classList.add('maxx-success');
@@ -694,7 +690,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const slot = document.querySelector(`[data-id="${snack.id}"]`);
             if (!slot) return;
 
-            // Compute hypothetical post-tax total if we add this single snack to the current cart
             let hypotheticalSubtotal = 0;
             selectedSnacks.forEach((count, id) => {
                 const s = snacks.find(item => item.id === id);
@@ -711,10 +706,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const isAlreadySelected = selectedSnacks.has(snack.id) && selectedSnacks.get(snack.id) > 0;
 
-            // Wipe out standard and MAXX style rules on recalculation
             slot.classList.remove('affordable', 'expensive', 'maxx', 'maxx-success');
 
-            // If the entire cart reaches perfect budget spent, turn selections into gold superstars!
             if (isCurrentlyMaxxed) {
                 if (isAlreadySelected) {
                     slot.classList.add('maxx-success');
@@ -722,13 +715,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // MAXX match check (Exact zero remainder trigger evaluated in cents)
             if (budgetLeftCents > 0 && hypotheticalTotalCents === budgetCents) {
                 slot.classList.add('maxx');
-                return; // Skips affordable and expensive rulesets
+                return; 
             }
 
-            // If already selected but not part of a MAXX option, we do not highlight green/grey
             if (isAlreadySelected) {
                 return;
             }
@@ -740,11 +731,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Trigger updates on our glowing navigation buttons
         updateArrowGlows();
     }
 
-    // --- DYNAMIC FILTER BUTTON GENERATOR ---
     function renderFilters() {
         flavorFiltersContainer.innerHTML = '';
         const tags = currentMode === 'taste' ? allCategories : allVibes;
@@ -766,7 +755,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     activeFilters.add(tag);
                     btn.classList.add('active');
                 }
-                currentPage = 0; // Reset page on filter toggle to display matching set from the first page
+                currentPage = 0; 
                 applyFilters();
             });
 
@@ -774,7 +763,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- MODE SWITCHING LISTENERS ---
     const modeTasteBtn = document.getElementById('mode-taste');
     const modeVibeBtn = document.getElementById('mode-vibe');
 
@@ -785,7 +773,7 @@ document.addEventListener('DOMContentLoaded', () => {
         modeVibeBtn.classList.remove('active');
         activeProfileTitle.textContent = 'Active Taste Filters';
         activeFilters.clear();
-        currentPage = 0; // Reset page on mode change
+        currentPage = 0; 
         renderFilters();
         applyFilters();
     });
@@ -797,12 +785,11 @@ document.addEventListener('DOMContentLoaded', () => {
         modeTasteBtn.classList.remove('active');
         activeProfileTitle.textContent = 'Active Vibe Filters';
         activeFilters.clear();
-        currentPage = 0; // Reset page on mode change
+        currentPage = 0; 
         renderFilters();
         applyFilters();
     });
 
-    // --- LOGIC AND / OR TOGGLE HANDLER ---
     const btnOr = document.getElementById('btn-or');
     const btnAnd = document.getElementById('btn-and');
 
@@ -810,16 +797,14 @@ document.addEventListener('DOMContentLoaded', () => {
         filterLogic = 'OR';
         btnOr.classList.add('active');
         btnAnd.classList.remove('active');
-        currentPage = 0; // Reset page on logic change
+        currentPage = 0; 
         applyFilters();
     });
 
-    // Apply Filters and Pagination layout
     function applyFilters() {
         const matchingSnacks = getMatchingSnacks();
         const totalPages = Math.max(1, Math.ceil(matchingSnacks.length / itemsPerPage));
 
-        // Safely check if current page index overflows the filtered list
         if (currentPage >= totalPages) {
             currentPage = 0;
         }
@@ -833,7 +818,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const id = slot.getAttribute('data-id');
             const isPageSnack = pageSnacks.some(s => s.id === id);
 
-            // Flex to display, none to hide. Pack them cleanly in grid!
             slot.style.display = isPageSnack ? 'flex' : 'none';
         });
 
@@ -848,11 +832,10 @@ document.addEventListener('DOMContentLoaded', () => {
         filterLogic = 'AND';
         btnAnd.classList.add('active');
         btnOr.classList.remove('active');
-        currentPage = 0; // Reset page on logic change
+        currentPage = 0; 
         applyFilters();
     });
 
-    // --- RECURSIVE SNACK-COMBINATION SOLVER ---
     function findMaxxCombinationsSafe(matchingSnacksList, currentSubtotal, targetBudget, taxRateVal, maxSteps = 20000, maxResults = 1000) {
         const targetCents = Math.round(targetBudget * 100);
         const currentSubtotalCents = Math.round(currentSubtotal * 100);
@@ -895,7 +878,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return results;
     }
 
-    // --- AUTO-MAXX CLICK HANDLER ---
     if (automaxxBtn) {
         automaxxBtn.addEventListener('click', () => {
             const currentTotal = calculateTotal();
@@ -913,7 +895,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Calculate current subtotal
             let currentSubtotal = 0;
             selectedSnacks.forEach((count, id) => {
                 const s = snacks.find(item => item.id === id);
@@ -922,19 +903,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // Find valid paths
             const combos = findMaxxCombinationsSafe(activeMatchingSnacks, currentSubtotal, userBudget, taxRate);
 
             if (combos.length > 0) {
-                // Randomly choose one set from our calculated possibilities
                 const randomCombo = combos[Math.floor(Math.random() * combos.length)];
 
-                // Add chosen snacks to the active list
                 randomCombo.forEach(id => {
                     selectedSnacks.set(id, (selectedSnacks.get(id) || 0) + 1);
                 });
 
-                // Re-render selection classes and badges
                 document.querySelectorAll('.snack-slot').forEach(slot => {
                     const id = slot.getAttribute('data-id');
                     const badge = slot.querySelector('.snack-count');
@@ -956,7 +933,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- CLEAR SELECTIONS CLICK HANDLER ---
     if (clearBtn) {
         clearBtn.addEventListener('click', () => {
             resetCart();
@@ -964,7 +940,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // === MASCOT CENTRALIZED VECTOR PHYSICS ENGINE ===
+    // --- MASCOT CENTRALIZED VECTOR PHYSICS ENGINE ---
     const armL = document.getElementById('mascot-arm-l');
     const armR = document.getElementById('mascot-arm-r');
     const legL = document.getElementById('mascot-leg-l');
@@ -972,42 +948,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const pupilL = document.getElementById('pupil-l');
     const pupilR = document.getElementById('pupil-r');
 
-    // Capture global cursor coordinates
     window.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
         mouseY = e.clientY;
     });
 
-    // Clean tracking animation loop
     function updateMascotAnimations() {
-
-        // ========================================================
-        // 1. CONFIGURABLE SWAY SETTINGS (TWEAK SPEED AND STRENGTH HERE!)
-        // ========================================================
         const timeSec = Date.now() / 1000;
 
-        // SPEED (Frequency) - Larger numbers make limbs swing faster!
-        const armSwaySpeed = 2.2;  // Swings per second (default standard cycle)
-        const legSwaySpeed = 2.5;  // Legs swing slightly slower than arms for dynamic variance
+        const armSwaySpeed = 2.2;  
+        const legSwaySpeed = 2.5;  
 
-        // STRENGTH (Amplitude) - Larger values increase the range of rotation (degrees)!
-        const armSwayStrength = 10; // Arms rotate up to 12.5 degrees in each direction
-        const legSwayStrength = 6.0;  // Legs sway in a more subtle 6.0-degree range
+        const armSwayStrength = 10; 
+        const legSwayStrength = 6.0;  
 
-        // ========================================================
-        // 2. MATHEMATICAL WAVE WAVEFORMS (Perfect independent offsets)
-        // ========================================================
-        // Left arm and Left leg sway forward...
         const leftArmIdleSway = Math.sin(timeSec * (2 * Math.PI / armSwaySpeed)) * armSwayStrength;
         const leftLegIdleSway = Math.sin(timeSec * (2 * Math.PI / legSwaySpeed)) * legSwayStrength;
 
-        // ...while Right arm and Right leg swing out-of-phase (opposite direction) for natural balance!
         const rightArmIdleSway = -Math.sin(timeSec * (2 * Math.PI / armSwaySpeed)) * armSwayStrength;
         const rightLegIdleSway = -Math.sin(timeSec * (2 * Math.PI / legSwaySpeed)) * legSwayStrength;
 
-        // ========================================================
-        // 3. APPLY ROTATIONS TO IDLE LIMBS (Right Arm, Left Leg, Right Leg)
-        // ========================================================
         if (armR) {
             armR.style.transform = `rotate(${rightArmIdleSway}deg)`;
         }
@@ -1018,9 +978,6 @@ document.addEventListener('DOMContentLoaded', () => {
             legR.style.transform = `rotate(${rightLegIdleSway}deg)`;
         }
 
-        // ========================================================
-        // 4. DYNAMIC EYE TRACKING (CURSOR FOLLOWING)
-        // ========================================================
         [pupilL, pupilR].forEach(pupil => {
             if (!pupil) return;
             const socketRect = pupil.parentElement.getBoundingClientRect();
@@ -1031,19 +988,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const dy = mouseY - centerY;
             const dist = Math.sqrt(dx * dx + dy * dy);
 
-            const maxMovement = 3; // Focus boundary (reduced to prevent socket edge collisions)
+            const maxMovement = 3; 
             if (dist > 0) {
                 const angle = Math.atan2(dy, dx);
-                const clampDist = Math.min(dist * 0.1, maxMovement); // Smooth drag tracking
+                const clampDist = Math.min(dist * 0.1, maxMovement); 
                 const moveX = Math.cos(angle) * clampDist;
                 const moveY = Math.sin(angle) * clampDist;
                 pupil.style.transform = `translate(${moveX}px, ${moveY}px)`;
             }
         });
 
-        // ========================================================
-        // 5. UNIFIED LEFT POINTING ARM CONTROLLER (Interpolated Blend)
-        // ========================================================
         if (armL) {
             const targetSlot = lastSelectedId ? document.querySelector(`[data-id="${lastSelectedId}"]`) : null;
 
@@ -1054,7 +1008,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const armRect = armL.getBoundingClientRect();
                 const slotRect = targetSlot.getBoundingClientRect();
 
-                // Calculate Pivot center coordinates (top-middle: 50% width, 10% height)
                 const pivotX = armRect.left + armRect.width * 0.50;
                 const pivotY = armRect.top + armRect.height * 0.10;
 
@@ -1070,13 +1023,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 const angleOffset = -100;
                 const targetAngle = angleDeg + angleOffset;
 
-                // Smoothly merge into the target slot direction from our current sway
                 if (currentArmAngle === null) {
                     currentArmAngle = leftArmIdleSway;
                 }
 
                 let diff = targetAngle - currentArmAngle;
-                diff = ((diff + 540) % 360) - 180; // Shortest path wrap
+                diff = ((diff + 540) % 360) - 180; 
                 currentArmAngle += diff * 0.12;
 
                 armL.style.transform = `rotate(${currentArmAngle}deg)`;
@@ -1089,29 +1041,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     if (Math.abs(diff) < 1.0) {
                         armL.classList.remove('pointing');
-                        currentArmAngle = null; // Clear pointing state
+                        currentArmAngle = null; 
                         armL.style.transform = `rotate(${leftArmIdleSway}deg)`;
                     } else {
-                        // Smoothly glide back to the live idle sway point
                         currentArmAngle += diff * 0.12;
                         armL.style.transform = `rotate(${currentArmAngle}deg)`;
                     }
                 } else {
-                    // Arm is resting; match the wave perfectly
                     armL.classList.remove('pointing');
                     armL.style.transform = `rotate(${leftArmIdleSway}deg)`;
                 }
             }
         }
 
-        // Loop the next animation frame
         requestAnimationFrame(updateMascotAnimations);
     }
 
-    // Start loop immediately
     requestAnimationFrame(updateMascotAnimations);
 
-    // Initial welcome voice load
     renderFilters();
     applyFilters();
     updateBudgetHighlights(snacks);
