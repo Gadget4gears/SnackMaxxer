@@ -8,22 +8,22 @@ Jack Links Beef Tender Bites,2.89,SAVORY,HEALTHY|SELF-REFLECTIVE,assets/jack_lin
 Peanut M&Ms,2.69,SWEET|SALTY|SAVORY,CHIC|STYLISH,assets/peanut_m&ms.png,I think the pretzel ones are better. Call me biased.,2.79
 Kit Kat,2.49,SWEET,CHEEKY|ELEGANT,assets/kitkat.png,You're sharing that. Right...?,2.58
 Reese's Peanut Butter Cups,2.49,SWEET|SAVORY,CHIC|COSMOPOLITAN,assets/reeses.png,Peanut BETTER than a KitKat.,2.58
-Kinder Bueno,2.49,SWEET,NOSTALGIC|HYPER,assets/kinder_bueno.png,Have a good day at school sweetie!,2.58
+Kinder Bueno,2.49,SWEET,NOSTALGIC|HYPER,assets/kinder_bueno.png,"""Have a good day at school, sweetie!""",2.58
 Almond Joy,2.49,SWEET|BITTER,IN DENIAL|DESPERATE,assets/almond_joy.png,No it's not a 'healthy' candy bar. Let's rip that band-aid off right now.,2.58
 Cookie Dough Bites,2.49,SWEET,NOSTALGIC|CINEPHILE,assets/cookie_dough_bites.png,Ahh… makes me miss Blockbuster.,2.58
 Snickers Minis,2.69,SWEET|SALTY,RAVENOUS|SPOOKY,assets/snickers_minis.png,"""Personally, I'm a full size candy bar kinda guy.""",2.79
-Banana Bread Granola Bakes,1.99,SWEET,HEALTHY|ELEGANT,assets/banana_bread_granola_bakes.png,"""Peanut free, tree nut free, dairy free, soy free. Thankfully not flavor free.""",2.19
+Banana Bread Granola Bakes,2.19,SWEET,HEALTHY|ELEGANT,assets/banana_bread_granola_bakes.png,"""Peanut free, tree nut free, dairy free, soy free. Thankfully not flavor free.""",2.27
 BelVita Blueberry Breakfast Biscuits,1.89,SWEET,RAVENOUS|INSECURE,assets/belvita_breakfast_biscuits.png,Breakfast my *a***.,1.96
 Gatorade Chocolate Chip Protein Bar,3.49,SWEET|SALTY|LITERALLY ASBESTOS,INSECURE|CHAOTIC,assets/gatorade_chocolate_protein_bar.png,Overbaked styrofoam beads coated in a layer of cheap and saccharine chocolate. Finished with that chalky aftertaste that gym bros love. ,3.62
 Chocolate Chip Clif Bar,2.89,SWEET,"""HEALTHY""|OUTDOORSY|BRAVE",assets/chocolate_chip_clif_bar.png,"""Oh, you like Clif bars? Free solo El Capitan right now.""",3
 Shelled Pistachios,2.29,SALTY|SAVORY|BITTER,ELITIST|HEALTHY,assets/shelled_pistachios.png,You healthy ~bastard~.,2.38
-Planters Flamin' Hot Peanuts.png,1.49,SALTY|SPICY|SAVORY,SASSY|WILD,assets/flamin_hot_peanuts.png,SPICY. *clap* \\nCHEAP. *clap* \\nYES. *clap*,1.59
+Planters Flamin' Hot Peanuts.png,1.59,SALTY|SPICY|SAVORY,SASSY|WILD,assets/flamin_hot_peanuts.png,SPICY. *clap* \\nCHEAP. *clap* \\nYES. *clap*,1.65
 Planters Salted Cashews,2.19,SALTY|SAVORY,HEALTHY|ELEGANT,assets/salted_cashews.png,You're the coolest gas station vegan I know.,2.27
 Welches Strawberry Fruit 'n Yogurt Snacks,3.49,SWEET,CHEEKY|WILD,assets/strawberry_fruit_n_yogurt.png,The closest you can get to doing recreational drugs at work.,3.62
 Brown Sugar Pop Tarts ,1.89,SWEET,HYPER|NAUGHTY|DESPERATE,assets/brown_sugar_pop_tarts.png,"""… you know there's a strawberry one right there, right?""",1.96
 Strawberry Pop Tarts ,1.89,SWEET,HYPER|NAUGHTY,assets/strawberry_pop_tarts.png,"""Cheat day, eh? How many times is that this week?""",1.96
 Rice Krispies Treats,1.89,SWEET,NOSTALGIC|SELF-REFLECTIVE,assets/rice_krispies_treats.png,*Oh no!* Mommy forgot to pack your lunch!,1.96
-Oatmeal Crème Pie,1.99,,,,,2.07
+Oatmeal Creme Pie,1.99,SWEET,INDULGENT|SHAMEFUL,assets/oatmeal_creme_pie.png,"""So bad, but oh so ~gooood~.""",2.07
 Nutty Buddy,1.99,,,,,2.07
 Strawberry Vanilla Croissant,2.39,SWEET|SAVORY,DESPERATE|BRAVE,assets/strawberry_vanilla_croissant.png,*inhales* It has a certain... Je ne sais qu- *gags*.,2.48
 Tostitos Meduim Salsa,1.49,,,,,1.55
@@ -35,7 +35,7 @@ Chicken Cup Noodles ,1.69,,,,,1.75
 Pringles Original,2.29,,,,,2.38
 Wrigleys Extra Polar Ice Gum,2.09,SWEET|MINTY,CHIC|FRESH|CRUEL,assets/extra_polar_ice_gum.png,*SMACK. SMACK. SMACK. SMACK. SMACK.* ,2.17
 Jack Links Zero Sugar Beef Stick,2.19,,,,,2.27
-Mini Donuts Chocolate,2.69,,,,,2.79
+Mini Donuts Chocolate,2.69,SWEET,DECADENT|TRASHY|SHAMEFUL,assets/mini_chocolate_donuts.png,"""Don't worry, no one's looking at your screen.""",2.79
 Mini Donuts Powdered,2.69,,,,,2.79
 Lays Classic,1.69,,,,,1.75
 Lays Sour Cream and Onion ,1.69,,,,,1.75
