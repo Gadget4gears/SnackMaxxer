@@ -20,13 +20,13 @@ Shelled Pistachios,2.29,SALTY|SAVORY|BITTER,ELITIST|HEALTHY,assets/shelled_pista
 Planters Flamin' Hot Peanuts.png,1.59,SALTY|SPICY|SAVORY,SASSY|WILD,assets/flamin_hot_peanuts.png,SPICY. *clap* \\nCHEAP. *clap* \\nYES. *clap*,1.65
 Planters Salted Cashews,2.19,SALTY|SAVORY,HEALTHY|ELEGANT,assets/salted_cashews.png,You're the coolest gas station vegan I know.,2.27
 Welches Strawberry Fruit 'n Yogurt Snacks,3.49,SWEET,CHEEKY|WILD,assets/strawberry_fruit_n_yogurt.png,The closest you can get to doing recreational drugs at work.,3.62
-Brown Sugar Pop Tarts ,1.89,SWEET,HYPER|NAUGHTY|DESPERATE,assets/brown_sugar_pop_tarts.png,"""… you know there's a strawberry one right there, right?""",1.96
+Brown Sugar Pop Tarts ,1.89,SWEET,HYPER|NAUGHTY|DESPERATE,assets/brown_sugar_pop_tarts.png,"""...you know there's a strawberry one right there, right?""",1.96
 Strawberry Pop Tarts ,1.89,SWEET,HYPER|NAUGHTY,assets/strawberry_pop_tarts.png,"""Cheat day, eh? How many times is that this week?""",1.96
 Rice Krispies Treats,1.89,SWEET,NOSTALGIC|SELF-REFLECTIVE,assets/rice_krispies_treats.png,*Oh no!* Mommy forgot to pack your lunch!,1.96
-Oatmeal Creme Pie,1.99,SWEET,INDULGENT|SHAMEFUL,assets/oatmeal_creme_pie.png,"So bad, but oh so ~gooood~.",2.07
-Nutty Buddy,1.99,,,,,2.07
+Oatmeal Creme Pie,1.99,SWEET,INDULGENT|SHAMEFUL,assets/oatmeal_creme_pie.png,"""So bad, but oh so ~gooood~.""",2.07
+Nutty Buddy,1.99,SWEET|SALTY,COSMOPOLITAN|NOSTALGIC|TRASHY,assets/nutty_buddy.png,"""They DO have *some* protein, sooo let's do this.""",2.07
 Strawberry Vanilla Croissant,2.39,SWEET|SAVORY,DESPERATE|BRAVE,assets/strawberry_vanilla_croissant.png,*inhales* It has a certain... Je ne sais qu- *gags*.,2.48
-Tostitos Meduim Salsa,1.49,,,,,1.55
+Tostitos Meduim Salsa,1.49,SAVORY|SPICY,WILD|BASIC|SASSY,assets/tostitos_salsa.png,"""It ain't even hot, don't lie.""",1.55
 Tostitos Meduim Nacho Cheese Dip,2.09,SAVORY|SALTY,RAVENOUS|TRASHY,assets/nacho_cheese_dip.png,Please tell me you're buying  chips with this.,2.17
 Sunbelt Bakery Fudge Dipped Chocolate Chip Granola Bar,1.59,SWEET,BASIC|DESPERATE,assets/sunbelt_bar.png,"So you're here with under $2 and still looking for a ~chocolate~ fix? *Sorry pal*, this is it.",1.65
 Cinnamon Toast Crunch Treat,2.59,SALTY|SWEET,ELEGANT|TRASHY,assets/cinnamon_toast_treat.png,Rice Krispies should have seen this coming. Game over.,2.69
@@ -35,7 +35,7 @@ Chicken Cup Noodles ,1.69,,,,,1.75
 Pringles Original,2.29,,,,,2.38
 Wrigleys Extra Polar Ice Gum,2.09,SWEET|MINTY,CHIC|FRESH|CRUEL,assets/extra_polar_ice_gum.png,*SMACK. SMACK. SMACK. SMACK. SMACK.* ,2.17
 Jack Links Zero Sugar Beef Stick,2.19,,,,,2.27
-Mini Donuts Chocolate,2.69,SWEET,DECADENT|TRASHY|SHAMEFUL,assets/mini_chocolate_donuts.png,"Don't worry, no one's looking at your screen.",2.79
+Mini Donuts Chocolate,2.69,SWEET,DECADENT|TRASHY|SHAMEFUL,assets/mini_chocolate_donuts.png,"""Don't worry, no one's looking at your screen.""",2.79
 Mini Donuts Powdered,2.69,,,,,2.79
 Lays Classic,1.69,,,,,1.75
 Lays Sour Cream and Onion ,1.69,,,,,1.75
