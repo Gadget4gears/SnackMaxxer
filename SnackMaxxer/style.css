@@ -1,0 +1,1440 @@
+/* style.css */
+
+/* --- CONFIGURABLE COLOR PALETTE --- */
+:root {
+    --machine-frame: #00629b;
+    --machine-body-bg: #2d333d;
+    --machine-accent: #ffcc00; /* Gold/Yellow Selection & Receipt Accent */
+    --glass-bg: #0b0d11;
+    --glass-glow: rgba(0, 240, 255, 0.12);
+    --screen-bg: #091315;
+    --screen-text: #39ff14; /* High-contrast neon green */
+
+    --popover-bg: rgba(28, 31, 36, 0.88);
+    --popover-border: rgba(255, 255, 255, 0.15);
+    --popover-text: #ffffff;
+    --btn-action: #d11a2a;
+    --btn-action-hover: #a8101e;
+    --txt-italic_shake: #ce0000;
+}
+
+/* --- BASE STYLES --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+body {
+    background-color: #121418;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #ffffff;
+}
+
+/* --- TALL & WIDER VENDING GRID --- */
+.vending-machine {
+    display: grid;
+    grid-template-columns: 1.8fr 1.1fr;
+    grid-template-rows: auto 1fr;
+    gap: 15px;
+    width: 740px; /* Spaciously holds the wider grid columns */
+    height: 870px;
+    background-color: var(--machine-body-bg);
+    border: 12px solid var(--machine-frame);
+    border-radius: 18px;
+    padding: 15px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.8), inset 0 0 40px rgba(0,0,0,0.5);
+    position: relative;
+    overflow: visible;
+}
+
+/* --- RETRO HEADER BAR --- */
+.machine-header {
+    grid-column: 1 / -1; /* Spans across both columns */
+    background-color: #14161d;
+    border: 3px solid #000;
+    border-radius: 8px;
+    padding: 8px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+    border-bottom: 2px solid #2d3139;
+}
+
+.brand-title {
+    font-weight: 900;
+    font-size: 1.3rem;
+    color: var(--machine-accent);
+    text-shadow: 0 0 6px rgba(255, 204, 0, 0.4);
+    letter-spacing: 1px;
+}
+
+.budget-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.selector-label {
+    font-size: 0.65rem;
+    color: #888;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.custom-budget-input-group {
+    display: flex;
+    align-items: center;
+    background: #252932;
+    border: 1px solid #3d424e;
+    border-radius: 4px;
+    padding: 2px 6px;
+    gap: 4px;
+}
+
+    .custom-budget-input-group input {
+        background: none;
+        border: none;
+        color: #fff;
+        width: 50px;
+        font-size: 0.75rem;
+        text-align: center;
+        outline: none;
+    }
+
+        /* Hide standard HTML number input arrows */
+        .custom-budget-input-group input::-webkit-outer-spin-button,
+        .custom-budget-input-group input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+.currency-symbol {
+    font-size: 0.75rem;
+    color: var(--machine-accent);
+    font-weight: bold;
+}
+
+.budget-btn {
+    background: #252932;
+    border: 1px solid #3d424e;
+    color: #ccc;
+    padding: 4px 10px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+    .budget-btn:hover {
+        border-color: var(--machine-accent);
+        color: #fff;
+    }
+
+    .budget-btn.active {
+        background: var(--machine-accent);
+        color: #000;
+        border-color: var(--machine-accent);
+    }
+
+/* --- SHOWCASE WINDOW (GLASS VIEW) --- */
+.showcase-window {
+    background-color: var(--glass-bg);
+    border: 4px solid #000;
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: inset 0 0 25px var(--glass-glow);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Secure pagination bar spacing at bottom */
+    position: relative;
+    z-index: 1; /* Low layer so mascot overlaps glass area cleanly */
+}
+
+.snacks-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columns per row layout */
+    gap: 10px;
+    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.2s ease-out;
+}
+
+/* --- SNACK GRID SLOT --- */
+.snack-slot {
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 2px solid #2d3139;
+    border-radius: 8px;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease-in-out;
+}
+
+.snack-code {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    background: #000;
+    color: var(--screen-text);
+    font-size: 0.65rem;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-weight: bold;
+    z-index: 5;
+}
+
+/* --- SNACK IMAGE LAYOUT --- */
+.snack-image {
+    width: 75%; /* Scales up nicely, leaving a comfortable boundary */
+    height: 75%;
+    object-fit: contain; /* Scales all dimensions uniformly without stretching */
+    user-select: none;
+    pointer-events: none; /* Passes through drag/clicks to parent slots smoothly */
+    transition: transform 0.2s ease-in-out;
+    z-index: 4;
+}
+
+/* --- HOVER EFFECT: SHAKE & GLOW --- */
+.snack-slot:hover {
+    background-color: rgba(255, 255, 255, 0.06);
+    border-color: var(--machine-accent);
+    box-shadow: 0 0 12px rgba(255, 204, 0, 0.3);
+}
+
+    .snack-slot:hover .snack-image {
+        animation: gentle-shake 0.4s infinite alternate;
+    }
+
+@keyframes gentle-shake {
+    0% {
+        transform: rotate(-3deg) scale(1.1);
+    }
+
+    100% {
+        transform: rotate(3deg) scale(1.1);
+    }
+}
+
+/* --- RETRO HIGH-CONTRAST WHITE POPOVER --- */
+.snack-popover {
+    position: absolute;
+    display: none;
+    width: 180px;
+    background-color: #ffffff; /* Pure white background */
+    color: #000000; /* Crisp black text */
+    border: 2px solid #000000; /* Bold comic-style black outline */
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.95); /* Solid retro block shadow */
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.popover-name {
+    font-size: 0.85rem;
+    font-weight: 800;
+    border-bottom: 2px solid #000000; /* Thick separator line */
+    padding-bottom: 4px;
+    margin-bottom: 6px;
+    color: var(--machine-frame); /* Bold red title text */
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.popover-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: #121418; /* Dark charcoal text for rows */
+    margin-bottom: 4px;
+}
+
+/* Styled tags preview line */
+.popover-tags {
+    margin-top: 6px;
+    padding-top: 4px;
+    border-top: 1px dashed #ccc;
+    color: #555555; /* Neutral dark gray for high readability */
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-align: center;
+}
+
+/* --- CONTROL PANEL SIDEBAR --- */
+.control-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    min-width: 0; /* Locks the panel from expanding horizontally */
+    overflow: visible; /* CRITICAL: Allows arms to swing out past columns */
+    position: relative;
+    z-index: 10; /* Higher layer to allow overlaps */
+}
+
+.display-screen {
+    background-color: var(--screen-bg);
+    border: 3px solid #111;
+    border-radius: 5px;
+    padding: 10px;
+    font-family: monospace;
+    color: var(--screen-text);
+    box-shadow: inset 0 0 12px rgba(0,255,50,0.25);
+    display: flex;
+    flex-direction: column;
+    min-height: 265px;
+}
+
+.screen-header {
+    text-align: center;
+    font-size: 0.7rem;
+    margin-bottom: 6px;
+    border-bottom: 1px dashed var(--screen-text);
+    padding-bottom: 4px;
+}
+
+/* --- SCREEN CART LEDGER --- */
+.receipt-ledger {
+    flex-grow: 1;
+    max-height: 120px;
+    overflow-y: auto;
+    margin-bottom: 8px;
+    padding: 4px 0;
+    border-bottom: 1px dashed var(--screen-text);
+}
+
+    /* --- CUSTOM RETRO GREEN SCROLLBAR FOR RECEIPT LEDGER --- */
+    .receipt-ledger::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .receipt-ledger::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 4px;
+    }
+
+    .receipt-ledger::-webkit-scrollbar-thumb {
+        background: var(--screen-text); /* Matches the neon green scroll thumb */
+        border-radius: 4px;
+    }
+
+.empty-cart-msg {
+    text-align: center;
+    font-size: 0.75rem;
+    color: rgba(57, 255, 20, 0.4);
+    line-height: 60px;
+}
+
+.ledger-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    margin-bottom: 3px;
+    color: var(--machine-accent);
+    animation: screen-flicker 0.15s ease-out;
+}
+
+@keyframes screen-flicker {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.screen-row {
+    font-size: 0.8rem;
+    margin-bottom: 3px;
+}
+
+.screen-total {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-top: 8px;
+    padding-top: 6px;
+    border-top: 1px dashed rgba(57, 255, 20, 0.4);
+    color: var(--machine-accent);
+    position: relative;
+    overflow: visible; /* Prevents particle clipping on the total box edges */
+}
+
+/* --- UNBOUNDED RETRO MASCOT SYSTEM --- */
+.mascot-container {
+    background: none;
+    border: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 8px;
+    margin-top: 8px;
+    position: relative;
+    z-index: 50;
+    overflow: visible; /* Allows limbs to swing way outside the container */
+}
+
+/* Custom Mascot image framing */
+.mascot-avatar {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    background: none;
+    border: none;
+    box-shadow: none;
+    display: block; /* Block layout ensures explicit absolute layer coords */
+    animation: idle-float 3s ease-in-out infinite alternate;
+    flex-shrink: 0;
+    z-index: 100;
+    overflow: visible;
+    top: -7px
+}
+
+@keyframes idle-float {
+    0% {
+        transform: translateY(0) rotate(-3deg);
+    }
+
+    100% {
+        transform: translateY(-10px) rotate(3deg);
+    }
+}
+
+/* Pretzel Body occupies the central layer */
+.mascot-body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: 3; /* Sits underneath limbs */
+    pointer-events: none;
+}
+
+/* Base class for arms and legs */
+.mascot-limb {
+    position: absolute;
+    object-fit: contain;
+    z-index: 10;
+    /* Prevents the arm from blocking slot selections or getting stuck on cursor events */
+    pointer-events: none !important;
+    transition: transform 0.2s ease-out;
+}
+
+/* --- LIMB OUTSIDE ATTACHMENT COORDINATES & PIVOTS --- */
+
+/* Left Arm: attached cleanly to the outside left edge */
+.arm-l {
+    left: -18px;
+    top: 55px;
+    width: 40px;
+    height: 85px;
+    transform-origin: 50% 5%; /* Pivots at shoulder joint */
+}
+
+/* Right Arm: attached cleanly to the outside right edge */
+.arm-r {
+    right: -18px;
+    top: 45px;
+    width: 40px;
+    height: 85px;
+    transform-origin: 50% 5%; /* Pivots at shoulder joint */
+}
+
+/* Left Leg: attached to bottom-left outside edge of body */
+.leg-l {
+    left: 18px;
+    bottom: -69px;
+    width: 40px;
+    height: 85px;
+    transform-origin: 50% 5%; /* Pivots at hip joint */
+}
+
+/* Right Leg: attached to bottom-right outside edge of body */
+.leg-r {
+    right: 18px;
+    bottom: -64px;
+    width: 40px;
+    height: 85px;
+    transform-origin: 50% 5%; /* Pivots at hip joint */
+}
+
+/* Mascot dialogue comic balloon */
+.mascot-bubble {
+    position: absolute;
+    left: 235px; /* Clear the mascot avatar frame */
+    top: 50%;
+    transform: translateY(-50%) scale(0);
+    opacity: 0;
+    width: 270px; /* Wide, readable box width */
+    background-color: #ffffff;
+    color: #000000;
+    border: 3px solid #000000;
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 0.95rem; /* Highly readable screen size */
+    font-weight: 800;
+    line-height: 1.4;
+    box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.95);
+    z-index: 9999;
+    pointer-events: none;
+    transform-origin: left center;
+    /* CRITICAL FOR CLEAN LINE BREAKS */
+    white-space: pre-wrap; /* Renders literal \n newlines perfectly */
+    word-break: break-word; /* Prevents awkward horizontal clipping */
+}
+
+    /* Comic pointer arrow sticking out from the bubble pointing back to the centered pretzel */
+    .mascot-bubble::after {
+        content: '';
+        position: absolute;
+        left: -8px;
+        top: 50%;
+        transform: translateY(-50%) rotate(45deg);
+        width: 14px;
+        height: 14px;
+        background-color: #ffffff;
+        border-left: 3px solid #000000;
+        border-bottom: 3px solid #000000;
+        z-index: 10;
+    }
+
+/* --- ANIMATION STATES --- */
+
+/* Speaking State: Triggered on click/action */
+.mascot-container.speaking .mascot-bubble {
+    animation: bubble-bounce 0.28s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* Exit State: Triggered after inactivity */
+.mascot-container.hidden .mascot-bubble {
+    animation: bubble-squash-out 0.22s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes bubble-bounce {
+    0% {
+        transform: translateY(-50%) scale(0) rotate(-3deg);
+        opacity: 0;
+    }
+
+    55% {
+        transform: translateY(-50%) scaleX(1.12) scaleY(0.85) rotate(1.5deg);
+        opacity: 1;
+    }
+
+    80% {
+        transform: translateY(-50%) scaleX(0.96) scaleY(1.04) rotate(-0.5deg);
+    }
+
+    100% {
+        transform: translateY(-50%) scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+@keyframes bubble-squash-out {
+    0% {
+        transform: translateY(-50%) scale(1) rotate(0deg);
+        opacity: 1;
+    }
+
+    40% {
+        transform: translateY(-50%) scaleX(1.15) scaleY(0.8) rotate(1.5deg);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translateY(-50%) scale(0) rotate(-4deg);
+        opacity: 0;
+    }
+}
+
+/* --- DYNAMIC FILTER PANEL & TOGGLES --- */
+.filter-panel {
+    background-color: rgba(0, 0, 0, 0.15);
+    border: 2px solid #2d3139;
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.profile-mode-toggle {
+    display: flex;
+    gap: 8px;
+    background: #14161d;
+    padding: 4px;
+    border-radius: 6px;
+}
+
+.mode-btn {
+    flex: 1;
+    background: none;
+    border: none;
+    color: #888;
+    padding: 6px 10px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+    .mode-btn.active {
+        background: var(--machine-accent);
+        color: #000;
+    }
+
+.logic-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: #aaa;
+    font-weight: bold;
+}
+
+.logic-toggle {
+    display: flex;
+    gap: 4px;
+    background: #14161d;
+    padding: 2px;
+    border-radius: 4px;
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    color: #666;
+    padding: 3px 8px;
+    font-size: 0.65rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.2s;
+}
+
+    .toggle-btn.active {
+        background: var(--screen-text);
+        color: #000;
+    }
+
+/* --- DYNAMIC TAG BUTTON PANEL --- */
+.flavor-btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    min-height: 100px;
+    max-height: 100px; /* Constrains height to trigger scroll mechanics when needed */
+    overflow-y: auto; /* Active scrolling enabled */
+    padding: 4px 4px 4px 0;
+}
+
+    /* Custom retro styling for scrollbars within button filters group */
+    .flavor-btn-group::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .flavor-btn-group::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 4px;
+    }
+
+    .flavor-btn-group::-webkit-scrollbar-thumb {
+        background: var(--screen-text); /* Neon green scroll thumb */
+        border-radius: 4px;
+    }
+
+.flavor-btn {
+    background: #252932;
+    border: 1px solid #3d424e;
+    color: #ccc;
+    padding: 4px 8px;
+    font-size: 0.65rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-transform: uppercase;
+}
+
+    .flavor-btn:hover {
+        border-color: #5d6475;
+        color: #fff;
+    }
+
+    .flavor-btn.active {
+        background: var(--screen-text);
+        color: #000;
+        border-color: var(--screen-text);
+        box-shadow: 0 0 6px rgba(57, 255, 20, 0.4);
+    }
+
+/* --- SHOWCASE WINDOW PAGINATION --- */
+.showcase-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #14161d;
+    border: 2px solid #000;
+    border-radius: 6px;
+    padding: 6px 12px;
+    margin-top: 10px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+}
+
+.page-arrow {
+    background: #252932;
+    border: 1px solid #3d424e;
+    color: #ccc;
+    font-size: 0.9rem;
+    font-weight: bold;
+    padding: 4px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    outline: none;
+    user-select: none;
+}
+
+    .page-arrow:disabled {
+        opacity: 0.2;
+        pointer-events: none;
+    }
+
+    .page-arrow:hover {
+        border-color: #fff;
+        color: #fff;
+    }
+
+    /* Gold Pulsing Glowing navigation arrow (MAXX items exist on target page) */
+    .page-arrow.glow-gold {
+        background: #ffd700 !important;
+        color: #000 !important;
+        border-color: #ffd700 !important;
+        box-shadow: 0 0 12px #ffd700;
+        animation: arrow-gold-pulse 1.2s infinite alternate;
+    }
+
+    /* Green Pulsing Glowing navigation arrow (Affordable items exist on target page) */
+    .page-arrow.glow-green {
+        background: var(--screen-text) !important;
+        color: #000 !important;
+        border-color: var(--screen-text) !important;
+        box-shadow: 0 0 12px var(--screen-text);
+        animation: arrow-green-pulse 1.2s infinite alternate;
+    }
+
+@keyframes arrow-gold-pulse {
+    0% {
+        box-shadow: 0 0 4px #ffd700;
+    }
+
+    100% {
+        box-shadow: 0 0 15px #ffd700;
+    }
+}
+
+@keyframes arrow-green-pulse {
+    0% {
+        box-shadow: 0 0 4px var(--screen-text);
+    }
+
+    100% {
+        box-shadow: 0 0 15px var(--screen-text);
+    }
+}
+
+.page-indicator {
+    font-family: monospace;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: var(--screen-text);
+    letter-spacing: 1px;
+    text-shadow: 0 0 5px rgba(57, 255, 20, 0.4);
+}
+
+/* --- GRID MOTION & SPRING MOMENTUM SHAKE ANIMATIONS --- */
+
+/* Grid Exit directions */
+.snacks-grid.slide-out-left {
+    transform: translateX(-120%);
+    opacity: 0;
+}
+
+.snacks-grid.slide-out-right {
+    transform: translateX(120%);
+    opacity: 0;
+}
+
+/* Grid Entrance directions */
+.snacks-grid.slide-in-left {
+    animation: enter-left 0.25s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.snacks-grid.slide-in-right {
+    animation: enter-right 0.25s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes enter-left {
+    0% {
+        transform: translateX(-120%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes enter-right {
+    0% {
+        transform: translateX(120%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Spring inertia momentum bounce */
+.snacks-grid.momentum-shake {
+    animation: spring-shake 0.35s ease-out forwards;
+}
+
+@keyframes spring-shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    30% {
+        transform: translateX(-6px) rotate(-0.5deg);
+    }
+
+    60% {
+        transform: translateX(4px) rotate(0.3deg);
+    }
+
+    85% {
+        transform: translateX(-2px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* --- ACTION BUTTON --- */
+.action-btn {
+    background-color: var(--btn-action);
+    border: none;
+    color: white;
+    padding: 8px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+    .action-btn:hover {
+        background-color: var(--btn-action-hover);
+    }
+
+/* --- DISPENSER BIN --- */
+.dispenser-bin {
+    background: #14161d;
+    border: 3px solid #000;
+    border-radius: 6px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 5px 15px rgba(0,0,0,0.8);
+    margin-top: 10px;
+}
+
+.flap {
+    color: #444;
+    font-weight: bold;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    border: 1px solid #222;
+    padding: 6px 20px;
+    background: #1e222b;
+    border-radius: 4px;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* --- LIVE BUDGET/SELECTION STATES --- */
+.snack-slot.selected {
+    background-color: rgba(0, 191, 255, 0.15) !important;
+    border-color: #00bfff !important;
+    box-shadow: 0 0 12px rgba(0, 191, 255, 0.4) !important;
+}
+
+/* Highlights affordable snacks green */
+.snack-slot.affordable {
+    border-color: rgba(57, 255, 20, 0.4);
+}
+
+/* Greys out expensive items beyond remaining budget */
+.snack-slot.expensive {
+    opacity: 0.4;
+    filter: grayscale(80%);
+}
+
+/* --- MULTI-SELECT QUANTITY BADGES & CONTROLS --- */
+
+/* White 1x, 2x, 3x badge on top right of slot */
+.snack-count {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: #ffffff;
+    color: #000000;
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 4px;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
+    z-index: 10;
+    display: none; /* Shown dynamically via JavaScript */
+    animation: screen-flicker 0.1s ease-out;
+}
+
+/* Split Controls Overlay Container */
+.slot-ctrl-btn {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    font-weight: 900;
+    font-family: Arial, sans-serif;
+    color: #ffffff !important;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.95);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease-in-out, background-color 0.15s ease-in-out;
+    z-index: 8;
+    user-select: none;
+}
+
+/* Show controls only when selected AND hovered */
+.snack-slot.selected:hover .slot-ctrl-btn {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Red Minus Control (Left 50%) */
+.ctrl-minus {
+    left: 0;
+    background: linear-gradient(to right, rgba(209, 26, 42, 0.85), rgba(209, 26, 42, 0.1));
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+    .ctrl-minus:hover {
+        background: linear-gradient(to right, rgba(209, 26, 42, 0.95), rgba(209, 26, 42, 0.3));
+    }
+
+/* Green Plus Control (Right 50%) */
+.ctrl-plus {
+    right: 0;
+    background: linear-gradient(to left, rgba(46, 204, 113, 0.7), rgba(46, 204, 113, 0.1));
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+    .ctrl-plus:hover {
+        background: linear-gradient(to left, rgba(46, 204, 113, 0.9), rgba(46, 204, 113, 0.3));
+    }
+
+/* --- MAXX PENNY-SPENDER FEATURE STYLES --- */
+
+/* Golden Glowing pulsing slot match */
+.snack-slot.maxx {
+    border: 2px solid #ffd700 !important;
+    background-color: rgba(255, 215, 0, 0.05) !important;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5), inset 0 0 10px rgba(255, 215, 0, 0.2) !important;
+    animation: gold-pulse 1.5s infinite alternate !important;
+}
+
+@keyframes gold-pulse {
+    0% {
+        box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
+    }
+
+    100% {
+        box-shadow: 0 0 25px rgba(255, 215, 0, 0.8), inset 0 0 12px rgba(255, 215, 0, 0.3);
+    }
+}
+
+/* Gold Retro Arcade Badge on Slot Bottom Right */
+.snack-maxx-badge {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    background: linear-gradient(135deg, #ffe066, #f5b041);
+    color: #000000;
+    font-size: 0.65rem;
+    font-weight: 900;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid #000000;
+    box-shadow: 0 0 5px rgba(255, 215, 0, 0.8);
+    display: none;
+    z-index: 10;
+}
+
+.snack-slot.maxx .snack-maxx-badge {
+    display: block;
+}
+
+/* Glowing perimeter-emitted sparkles container */
+.sparkles-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    overflow: visible; /* Allows glowing sparkles to burst OUTSIDE container bounds */
+    display: none;
+    z-index: 3;
+}
+
+.snack-slot.maxx .sparkles-container {
+    display: block;
+}
+
+/* Tiny circular golden glowing pixels */
+.sparkle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background-color: #ffd700;
+    border-radius: 50%;
+    box-shadow: 0 0 6px #ffd700, 0 0 12px #f39c12; /* Golden arcade bloom */
+    opacity: 0;
+}
+
+/* Structural placement & delay offsets for all 8 boundaries */
+.s1 {
+    top: 0;
+    left: 30%;
+    animation: burst-up 1.6s infinite ease-out;
+    animation-delay: 0s;
+}
+
+.s2 {
+    top: 0;
+    left: 70%;
+    animation: burst-up-right 1.6s infinite ease-out;
+    animation-delay: 0.2s;
+}
+
+.s3 {
+    top: 40%;
+    right: 0;
+    animation: burst-right 1.6s infinite ease-out;
+    animation-delay: 0.4s;
+}
+
+.s4 {
+    bottom: 0;
+    left: 80%;
+    animation: burst-down-right 1.6s infinite ease-out;
+    animation-delay: 0.6s;
+}
+
+.s5 {
+    bottom: 0;
+    left: 40%;
+    animation: burst-down 1.6s infinite ease-out;
+    animation-delay: 0.8s;
+}
+
+.s6 {
+    bottom: 0;
+    left: 15%;
+    animation: burst-down-left 1.6s infinite ease-out;
+    animation-delay: 1s;
+}
+
+.s7 {
+    top: 60%;
+    left: 0;
+    animation: burst-left 1.6s infinite ease-out;
+    animation-delay: 1.2s;
+}
+
+.s8 {
+    top: 15%;
+    left: 0;
+    animation: burst-up-left 1.6s infinite ease-out;
+    animation-delay: 1.4s;
+}
+
+/* Outward scaling & fading directions */
+@keyframes burst-up {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-16px) scale(0.2);
+        opacity: 0;
+    }
+}
+
+@keyframes burst-up-right {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(11px, -11px) scale(0.2);
+        opacity: 0;
+    }
+}
+
+@keyframes burst-right {
+    0% {
+        transform: translateX(0) scale(1);
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(16px) scale(0.2);
+        opacity: 0;
+    }
+}
+
+@keyframes burst-down-right {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(11px, 11px) scale(0.2);
+        opacity: 0;
+    }
+}
+
+@keyframes burst-down {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(16px) scale(0.2);
+        opacity: 0;
+    }
+}
+
+@keyframes burst-down-left {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-11px, 11px) scale(0.2);
+        opacity: 0;
+    }
+}
+
+@keyframes burst-left {
+    0% {
+        transform: translateX(0) scale(1);
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(-16px) scale(0.2);
+        opacity: 0;
+    }
+}
+
+@keyframes burst-up-left {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-11px, -11px) scale(0.2);
+        opacity: 0;
+    }
+}
+
+/* --- ULTIMATE MAXX SUCCESS VICTORY MODE --- */
+
+/* Triggers golden pulses, active shaking, badges, and particles on slots inside cart */
+.snack-slot.maxx-success {
+    border: 2.5px solid #ffd700 !important;
+    background-color: rgba(255, 215, 0, 0.12) !important;
+    animation: gold-pulse 1.2s infinite alternate !important;
+}
+
+    /* Triggers infinite retro hover shake on active gold selections */
+    .snack-slot.maxx-success .snack-image {
+        animation: gentle-shake 0.4s infinite alternate !important;
+    }
+
+    /* Force show gold badge & particles for cart items during success */
+    .snack-slot.maxx-success .snack-maxx-badge,
+    .snack-slot.maxx-success .sparkles-container {
+        display: block !important;
+    }
+
+/* Glowing gold text on the receipt's TOTAL row */
+.screen-total.maxx-success {
+    color: #ffd700 !important;
+    text-shadow: 0 0 10px #ffd700, 0 0 20px #f5b041;
+    animation: screen-flicker 0.15s ease-out;
+}
+
+    /* Activate sparkles on the total text box */
+    .screen-total.maxx-success .total-sparkles {
+        display: block !important;
+    }
+
+/* --- ACTION BUTTON GROUP --- */
+.action-btn-group {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+}
+
+    .action-btn-group .action-btn {
+        flex: 1; /* Fits both buttons side-by-side with equal width */
+    }
+
+/* Gold Retro Styling for AUTO-MAXX button */
+#automaxx-btn {
+    background-color: var(--machine-accent) !important;
+    color: #000000 !important;
+    border: 1px solid #000000;
+    box-shadow: 0 0 6px rgba(255, 204, 0, 0.3);
+}
+
+    #automaxx-btn:hover {
+        background-color: #ffd700 !important;
+        filter: brightness(1.1);
+        box-shadow: 0 0 10px rgba(255, 204, 0, 0.6);
+    }
+
+/* Red Styling for CLEAR button */
+#clear-btn {
+    background-color: var(--btn-action) !important;
+    color: #ffffff !important;
+    border: 1px solid #000000;
+}
+
+    #clear-btn:hover {
+        background-color: var(--btn-action-hover) !important;
+    }
+
+/* ------------------------------------ */
+/* --- MASCOT DIALOGUE TEXT EFFECTS --- */
+/* ------------------------------------ */
+
+/* Text surrounded by single asterisks will italicize, turn gold, and vibrate gently */
+.italic-vibrate {
+    display: inline-block; /* Essential to allow transform offsets to vibrate */
+    font-style: italic;
+    color: var(--txt-italic_shake); /* High-contrast neon green */
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.15);
+    font-weight: 900;
+    animation: gentle-vibrate 0.15s linear infinite;
+}
+
+/* Retro arcade screen text vibration */
+@keyframes gentle-vibrate {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    20% {
+        transform: translate(-0.8px, 0.8px) rotate(-0.5deg);
+    }
+
+    40% {
+        transform: translate(-0.8px, -0.8px) rotate(0.5deg);
+    }
+
+    60% {
+        transform: translate(0.8px, 0.8px) rotate(0deg);
+    }
+
+    80% {
+        transform: translate(0.8px, -0.8px) rotate(-0.5deg);
+    }
+
+    100% {
+        transform: translate(0, 0) rotate(0.5deg);
+    }
+}
+
+/* --- RAINBOW WAVE TEXT EFFECT --- */
+
+.rainbow-wave-char {
+    display: inline-block; /* Crucial to allow translateY to lift the letters */
+    font-weight: 900;
+    /* Adds a crisp, dark comic-style outline for ultimate readability on white backgrounds */
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.15);
+    /* Bounces letters up/down and cycles through deep, readable dark rainbow colors */
+    animation: bounce-wave .9s infinite ease-in-out, rainbow-cycle-dark 2s infinite linear;
+}
+
+/* Staggered mechanical bouncing wave keyframes */
+@keyframes bounce-wave {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+/* Deeper, highly-readable jewel-tone color cycle for white backgrounds */
+@keyframes rainbow-cycle-dark {
+    0% {
+        color: #E50000;
+    }
+    /* Vibrant Coral Red */
+    17% {
+        color: #E56A00;
+    }
+    /* Warm Sunshine Orange */
+    33% {
+        color: #C2A200;
+    }
+    /* Rich Golden Yellow */
+    50% {
+        color: #00B93E;
+    }
+    /* Vibrant Medium Green */
+    67% {
+        color: #0094B9;
+    }
+    /* Vibrant Ocean Blue-Teal */
+    83% {
+        color: #0033CF;
+    }
+    /* Vibrant Royal Cobalt */
+    100% {
+        color: #B900B9;
+    }
+    /* Bright Magenta-Purple */
+}
+
+/* --- EYE SOCKETS & PUPILS --- */
+.eye {
+    position: absolute;
+    width: 35px; /* Match this to the pixel size of your eye white image */
+    height: 35px;
+    z-index: 4; /* Floats cleanly on top of the main body */
+    overflow: hidden; /* Clips the pupil inside the socket */
+}
+
+.eye-left {
+    top: 15px; /* Vertical offset of the left eye socket */
+    left: 30px; /* Horizontal offset of the left eye socket */
+}
+
+.eye-right {
+    top: 12px; /* Vertical offset of the right eye socket */
+    left: 70px; /* Horizontal offset of the right eye socket */
+}
+
+.eye-socket-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: 1;
+}
+
+.pupil {
+    position: absolute;
+    width: 8px; /* Pixel size of pupil black dot */
+    height: 8px;
+    background-color: #000000;
+    border-radius: 40%;
+    z-index: 2;
+    will-change: transform;
+    top: calc(50% - 0px);
+    left: calc(50% - 5px);
+}
+
+/* --- POINTING OVERRIDE --- */
+/* Instantly halts the idle sway animation and lifts the arm above all layers */
+.arm-l.pointing {
+    animation: none !important;
+    /* CRITICAL 1: Elevates the arm to float over absolute boundaries, headers, & screens */
+    z-index: 999999 !important;
+    /* CRITICAL 2: Strips the CSS transition to make target tracking snappy and prevent 360° spins! */
+    transition: none !important;
+}

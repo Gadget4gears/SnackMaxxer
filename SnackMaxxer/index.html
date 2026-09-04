@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnackMaxxer - Retro Vending Machine</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="vending-machine" id="vending-machine">
+
+        <!-- Retro Header with Budget Configuration Bar -->
+        <div class="machine-header">
+            <div class="brand-title">SNACKMAXXER 3000</div>
+            <div class="budget-selector">
+                <span class="selector-label">LOAD BALANCE:</span>
+                <button type="button" class="budget-btn active" id="budget-10">$10.00 Standard</button>
+                <div class="custom-budget-input-group">
+                    <span class="currency-symbol">$</span>
+                    <input type="number" id="custom-budget-input" placeholder="Custom" min="1" max="100" step="1.00">
+                    <button type="button" class="budget-btn" id="budget-custom-apply">Load</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Left Showcase Area -->
+        <div class="showcase-window">
+            <div class="snacks-grid" id="snacks-grid">
+                <!-- Dynamic slots loaded by app.js -->
+            </div>
+            <!-- Pagination Controls Bar -->
+            <div class="showcase-pagination">
+                <button type="button" class="page-arrow prev" id="page-prev">◀</button>
+                <span class="page-indicator" id="page-indicator">PAGE 1/2</span>
+                <button type="button" class="page-arrow next" id="page-next">▶</button>
+            </div>
+        </div>
+
+        <!-- Right Control Panel -->
+        <div class="control-panel">
+            <!-- CRT Screen with Live Ledger -->
+            <div class="display-screen">
+                <div class="screen-header">⚡ SYSTEM ACTIVE ⚡</div>
+
+                <!-- Dynamic cart ledger itemized here -->
+                <div class="receipt-ledger" id="receipt-ledger">
+                    <div class="empty-cart-msg">--- INSERT COIN ---</div>
+                </div>
+
+                <div class="screen-row">Remaining Funds: <span id="budget-value">$10.00</span></div>
+                <div class="screen-row">Subtotal: <span id="subtotal-val">$0.00</span></div>
+                <div class="screen-row">Tax (3.79%): <span id="tax-val">$0.00</span></div>
+                <div class="screen-total">TOTAL: <span id="total-val">$0.00</span></div>
+            </div>
+
+            <!-- Mascot Dialogue Box -->
+            <div class="mascot-container">
+                <div class="mascot-avatar">
+                    <!-- Limbs (Layered behind the body) -->
+                    <img id="mascot-arm-l" class="mascot-limb arm-l" src="assets/pretz/pretz_arm_left.png" alt="Left Arm">
+                    <img id="mascot-arm-r" class="mascot-limb arm-r" src="assets/pretz/pretz_arm_right.png" alt="Right Arm">
+                    <img id="mascot-leg-l" class="mascot-limb leg-l" src="assets/pretz/pretz_leg_left.png" alt="Left Leg">
+                    <img id="mascot-leg-r" class="mascot-limb leg-r" src="assets/pretz/pretz_leg_right.png" alt="Right Leg">
+
+                    <!-- Pretzel Body Layer (Swaps between pretz_body and pretz_body_speak) -->
+                    <img id="mascot-avatar-img" class="mascot-body" src="assets/pretz/pretz_body.png" alt="Pretzel Mascot">
+
+                    <!-- Eye Sockets (Both using the same socket image) -->
+                    <div class="eye eye-left">
+                        <img class="eye-socket-img" src="assets/pretz/pretz_eye.png" alt="Left Eye Socket">
+                        <div id="pupil-l" class="pupil"></div>
+                    </div>
+                    <div class="eye eye-right">
+                        <img class="eye-socket-img" src="assets/pretz/pretz_eye.png" alt="Right Eye Socket">
+                        <div id="pupil-r" class="pupil"></div>
+                    </div>
+                </div>
+
+                <div class="mascot-bubble" id="mascot-dialogue">
+                    "Quit hovering over the goods and *buy* something!"
+                </div>
+            </div>
+
+
+            <!-- Taste vs Vibe Selector + Dynamic Tag Panel -->
+            <div class="filter-panel">
+                <!-- Taste vs Vibe Filter System Mode Selector -->
+                <div class="profile-mode-toggle">
+                    <button type="button" class="mode-btn active" id="mode-taste">Taste Profile</button>
+                    <button type="button" class="mode-btn" id="mode-vibe">Vibe Profile</button>
+                </div>
+
+                <div class="logic-header">
+                    <label id="active-profile-title">Active Taste Filters</label>
+                    <!-- AND / OR Toggle Control -->
+                    <div class="logic-toggle">
+                        <button type="button" class="toggle-btn active" id="btn-or">OR</button>
+                        <button type="button" class="toggle-btn" id="btn-and">AND</button>
+                    </div>
+                </div>
+
+                <!-- This group dynamically populates its buttons via JavaScript -->
+                <div id="flavor-filters" class="flavor-btn-group"></div>
+
+                <!-- AUTO-MAXX and CLEAR Button Group -->
+                <div class="action-btn-group">
+                    <button type="button" id="automaxx-btn" class="action-btn">AUTO-MAXX</button>
+                    <button type="button" id="clear-btn" class="action-btn">CLEAR</button>
+                </div>
+            </div>
+
+            <!-- Dispenser Bin -->
+            <div class="dispenser-bin">
+                <div class="flap">PUSH TO OPEN</div>
+            </div>
+        </div>
+
+        <!-- Floating Popover -->
+        <div id="global-popover" class="snack-popover"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
