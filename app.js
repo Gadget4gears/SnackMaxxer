@@ -41,7 +41,7 @@ let selectedSnacks = new Map(); // Key: snackId, Value: selected quantity count
 let activeFilters = new Set();
 let filterLogic = 'OR'; // Tracks active boolean mode: 'OR' or 'AND'
 let currentMode = 'taste'; // 'taste' or 'vibe'
-const taxRate = 0.0379;
+const taxRate = 0.08 // actually 0.0379;
 let lastSelectedId = null; // Tracks the ID of the most recently interacted snack
 let mouseX = 0, mouseY = 0; // Globally stores current cursor coordinates
 let currentArmAngle = null; // Tracks the current leg angle
