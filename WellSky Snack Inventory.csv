@@ -17,7 +17,7 @@ BelVita Blueberry Breakfast Biscuits,1.89,SWEET,RAVENOUS|INSECURE,assets/belvita
 Gatorade Chocolate Chip Protein Bar,3.49,SWEET|SALTY|LITERALLY ASBESTOS,INSECURE|CHAOTIC,assets/gatorade_chocolate_protein_bar.png,Overbaked styrofoam beads coated in a layer of cheap and saccharine chocolate. Finished with that chalky aftertaste that gym bros love. ,3.62
 Chocolate Chip Clif Bar,2.89,SWEET,"""HEALTHY""|OUTDOORSY|BRAVE",assets/chocolate_chip_clif_bar.png,"""Oh, you like Clif bars? Free solo El Capitan right now.""",3
 Shelled Pistachios,2.29,SALTY|SAVORY|BITTER,ELITIST|HEALTHY,assets/shelled_pistachios.png,You healthy ~bastard~.,2.38
-Planters Flamin' Hot Peanuts.png,1.49,SALTY|SPICY|SAVORY,SASSY|WILD,assets/flamin_hot_peanuts.png,SPICY. *clap* \nCHEAP. *clap* \nYES. *clap*,1.65
+Planters Flamin' Hot Peanuts,1.49,SALTY|SPICY|SAVORY,SASSY|WILD,assets/flamin_hot_peanuts.png,SPICY. *clap* \nCHEAP. *clap* \nYES. *clap*,1.65
 Planters Salted Cashews,2.19,SALTY|SAVORY,HEALTHY|ELEGANT,assets/salted_cashews.png,You're the coolest gas station vegan I know.,2.27
 Welches Strawberry Fruit 'n Yogurt Snacks,3.49,SWEET,CHEEKY|WILD,assets/strawberry_fruit_n_yogurt.png,The closest you can get to doing recreational drugs at work.,3.62
 Brown Sugar Pop Tarts ,1.89,SWEET,HYPER|NAUGHTY|DESPERATE,assets/brown_sugar_pop_tarts.png,"""...you know there's a strawberry one right there, right?""",1.96
@@ -32,10 +32,10 @@ Sunbelt Bakery Fudge Dipped Chocolate Chip Granola Bar,1.59,SWEET,BASIC|DESPERAT
 Cinnamon Toast Crunch Treat,2.59,SALTY|SWEET,ELEGANT|TRASHY,assets/cinnamon_toast_treat.png,Rice Krispies should have seen this coming. Game over.,2.69
 Lime LaCroix,1.29,SENSORY DEPRIVATION,ELITIST|DESPERATE,assets/lime_lacroix.png,Artificial lime water with ~air~. AND it's free in the fridge downstairs.,
 Chocolate Cupcakes,2.29,,,,,2.38
-Chicken Cup Noodles ,1.69,SAVORY|SALTY,"DESPERATE|""I DON'T CARE WHAT MY DOCTOR SAID""",assets/chicken_cup_noodles.png,"""Let's play a game! This one's called ~CARDIAC ROULETTE~.""",1.75
+Chicken Cup Noodles ,1.69,SAVORY|SALTY,DESPERATE|HYPERTENSION,assets/chicken_cup_noodles.png,"""Let's play a game! This one's called ~CARDIAC ROULETTE~.""",1.75
 Pringles Original,2.29,,,,,2.38
 Wrigleys Extra Polar Ice Gum,2.09,SWEET|MINTY,CHIC|FRESH|CRUEL,assets/extra_polar_ice_gum.png,*SMACK. SMACK. SMACK. SMACK. SMACK.* ,2.17
-Jack Links Zero Sugar Beef Stick,2.19,,,,,2.27
+Jack Links Zero Sugar Beef Stick,2.19,SAVORY,RAVENOUS|ANGRY,assets/jack_links_beef_stick.png,"""Why was there ~SUGAR~ in my *BEEF*?""",2.27
 Mini Donuts Chocolate,2.69,SWEET,DECADENT|TRASHY|SHAMEFUL,assets/mini_chocolate_donuts.png,"""Don't worry, no one's looking at your screen.""",2.79
 Mini Donuts Powdered,2.69,,,,,2.79
 Lays Classic,1.69,,,,,1.75
