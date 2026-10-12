@@ -891,7 +891,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             const activeMatchingSnacks = getMatchingSnacks();
             if (activeMatchingSnacks.length === 0) {
-                speak('"No SnackMaxxing combos exist for the current selection!"');
+                speak('"No SnackMaxxing combos exist for the current selection. You can thank Company Kitchen for the ~price hikes~."');
                 return;
             }
 
